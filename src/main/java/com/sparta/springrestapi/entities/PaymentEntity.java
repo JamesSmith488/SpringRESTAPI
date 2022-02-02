@@ -14,10 +14,10 @@ public class PaymentEntity {
     private Integer paymentId;
     @Basic
     @Column(name = "customer_id")
-    private Object customerId;
+    private Integer customerId;
     @Basic
     @Column(name = "staff_id")
-    private Object staffId;
+    private Integer staffId;
     @Basic
     @Column(name = "rental_id")
     private Integer rentalId;
@@ -39,19 +39,19 @@ public class PaymentEntity {
         this.paymentId = paymentId;
     }
 
-    public Object getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Object customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
-    public Object getStaffId() {
+    public Integer getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Object staffId) {
+    public void setStaffId(Integer staffId) {
         this.staffId = staffId;
     }
 

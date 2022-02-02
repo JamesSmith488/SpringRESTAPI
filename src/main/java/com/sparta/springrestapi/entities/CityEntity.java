@@ -16,7 +16,7 @@ public class CityEntity {
     private String city;
     @Basic
     @Column(name = "country_id")
-    private Object countryId;
+    private Integer countryId;
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
@@ -37,11 +37,11 @@ public class CityEntity {
         this.city = city;
     }
 
-    public Object getCountryId() {
+    public Integer getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Object countryId) {
+    public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
 

@@ -23,7 +23,7 @@ public class StaffEntity {
     private Integer addressId;
     @Basic
     @Column(name = "picture")
-    private byte[] picture;
+    private Byte[] picture;
     @Basic
     @Column(name = "email")
     private String email;
@@ -75,11 +75,11 @@ public class StaffEntity {
         this.addressId = addressId;
     }
 
-    public byte[] getPicture() {
+    public Byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(Byte[] picture) {
         this.picture = picture;
     }
 
