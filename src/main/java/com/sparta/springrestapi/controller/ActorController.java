@@ -6,7 +6,6 @@ import com.sparta.springrestapi.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -29,58 +29,81 @@ public class ActorController {
     }
 
     @GetMapping("/actors/all")
-    public CollectionModel<ActorEntity> findAllActors() {
-        List<ActorEntity> actors = repository.findAll();
-        for(ActorEntity actor : actors) {
-            actorSelfRef(actor);
-        }
-        Link link = linkTo(methodOn(ActorController.class)
+    public CollectionModel<EntityModel<ActorEntity>> findAllActors() {
+        List<EntityModel<ActorEntity>> actors = repository.findAll().stream()
+                .map(actor -> EntityModel.of(actor,
+                        linkTo(methodOn(ActorController.class)
+                                .findActorById(actor.getActorId()))
+                                .withSelfRel()))
+                .collect(Collectors.toList());
+        return CollectionModel.of(actors,
+                linkTo(methodOn(ActorController.class)
                 .findAllActors())
-                .withSelfRel();
-        return CollectionModel.of(actors,link);
+                .withSelfRel());
+    }
+
+    @GetMapping("/actors/name/{name}")
+    public CollectionModel<EntityModel<ActorEntity>> findActorsByName(@PathVariable String name) {
+        List<EntityModel<ActorEntity>> foundActors;
+        if(name == null) {
+            return findAllActors();
+        } else {
+            foundActors = new ArrayList<>();
+            for(ActorEntity actor : repository.findAll()) {
+                if((actor.getFirstName() + " " + actor.getLastName()).toLowerCase().contains(name.toLowerCase())) {
+                    foundActors.add(EntityModel.of(actor,
+                            linkTo(methodOn(ActorController.class)
+                                    .findActorById(actor.getActorId()))
+                                    .withSelfRel()));
+                }
+            }
+        }
+        return CollectionModel.of(foundActors,
+                linkTo(methodOn(ActorController.class)
+                        .findActorsByName(name))
+                        .withSelfRel());
     }
 
     @GetMapping("/actors")
-    public CollectionModel<ActorEntity> findActorsByName(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
-        List<ActorEntity> foundActors;
+    public CollectionModel<EntityModel<ActorEntity>> findActorsByName(@RequestParam() String firstName, @RequestParam() String lastName) {
+        List<EntityModel<ActorEntity>> foundActors;
         if(firstName == null && lastName == null) {
             return findAllActors();
         } else if(lastName == null) {
             foundActors = new ArrayList<>();
             for(ActorEntity actor : repository.findAll()) {
                if(actor.getFirstName().toLowerCase().contains(firstName.toLowerCase())) {
-                   foundActors.add(actor);
-                   actorSelfRef(actor);
+                   foundActors.add(EntityModel.of(actor,
+                           linkTo(methodOn(ActorController.class)
+                                   .findActorById(actor.getActorId()))
+                                   .withSelfRel()));
                }
             }
         } else if(firstName == null) {
             foundActors = new ArrayList<>();
             for(ActorEntity actor : repository.findAll()) {
                 if(actor.getLastName().toLowerCase().contains(lastName.toLowerCase())) {
-                    foundActors.add(actor);
-                    actorSelfRef(actor);
+                    foundActors.add(EntityModel.of(actor,
+                            linkTo(methodOn(ActorController.class)
+                                    .findActorById(actor.getActorId()))
+                                    .withSelfRel()));
                 }
             }
         } else {
             foundActors = new ArrayList<>();
             for(ActorEntity actor : repository.findAll()) {
                 if(actor.getFirstName().toLowerCase().contains(firstName.toLowerCase()) && actor.getLastName().toLowerCase().contains(lastName.toLowerCase())) {
-                    foundActors.add(actor);
-                    actorSelfRef(actor);
+                    foundActors.add(EntityModel.of(actor,
+                            linkTo(methodOn(ActorController.class)
+                                    .findActorById(actor.getActorId()))
+                                    .withSelfRel()));
                 }
             }
         }
-        Link link = linkTo(methodOn(ActorController.class)
+        return CollectionModel.of(foundActors,
+                linkTo(methodOn(ActorController.class)
                 .findActorsByName(firstName, lastName))
-                .withSelfRel();
-        return CollectionModel.of(foundActors,link);
-    }
-
-    private void actorSelfRef(ActorEntity actor) {
-        Link selfLink = linkTo(methodOn(ActorController.class)
-                .findActorById(actor.getActorId()))
-                .withSelfRel();
-        actor.add(selfLink);
+                .withSelfRel());
     }
 
     @GetMapping("/actors/{id}")
