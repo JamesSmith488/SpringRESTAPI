@@ -152,8 +152,9 @@ public class ActorController {
     }
 
     @DeleteMapping("/actors/{id}")
-    public void deleteActor(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteActor(@PathVariable("id") Integer id) {
         repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
