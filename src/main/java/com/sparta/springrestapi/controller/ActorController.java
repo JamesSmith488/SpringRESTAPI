@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.ValidationException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -35,7 +35,7 @@ public class ActorController {
                         linkTo(methodOn(ActorController.class)
                                 .findActorById(actor.getActorId()))
                                 .withSelfRel()))
-                .collect(Collectors.toList());
+                .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
                 .findAllActors())
@@ -104,6 +104,32 @@ public class ActorController {
                 linkTo(methodOn(ActorController.class)
                 .findActorsByName(firstName, lastName))
                 .withSelfRel());
+    }
+
+    @GetMapping("/actors/before/{date}")
+    public CollectionModel<EntityModel<ActorEntity>> findActorByDateBefore(@PathVariable("date") String date) {
+        List<EntityModel<ActorEntity>> actors = repository.findByLastUpdateBefore(Timestamp.valueOf(date)).stream()
+                .map(actor -> EntityModel.of(actor,
+                        linkTo(methodOn(ActorController.class)
+                                .findActorById(actor.getActorId()))
+                                .withSelfRel())).toList();
+        return CollectionModel.of(actors,
+                linkTo(methodOn(ActorController.class)
+                        .findAllActors())
+                        .withSelfRel());
+    }
+
+    @GetMapping("/actors/after/{date}")
+    public CollectionModel<EntityModel<ActorEntity>> findActorByDateAfter(@PathVariable("date") String date) {
+        List<EntityModel<ActorEntity>> actors = repository.findByLastUpdateAfter(Timestamp.valueOf(date)).stream()
+                .map(actor -> EntityModel.of(actor,
+                        linkTo(methodOn(ActorController.class)
+                                .findActorById(actor.getActorId()))
+                                .withSelfRel())).toList();
+        return CollectionModel.of(actors,
+                linkTo(methodOn(ActorController.class)
+                        .findAllActors())
+                        .withSelfRel());
     }
 
     @GetMapping("/actors/{id}")
