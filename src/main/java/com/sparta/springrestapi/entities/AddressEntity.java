@@ -22,7 +22,7 @@ public class AddressEntity {
     private String district;
     @Basic
     @Column(name = "city_id")
-    private Object cityId;
+    private Integer cityId;
     @Basic
     @Column(name = "postal_code")
     private String postalCode;
@@ -31,7 +31,7 @@ public class AddressEntity {
     private String phone;
     @Basic
     @Column(name = "location")
-    private Object location;
+    private String location;
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
@@ -68,11 +68,11 @@ public class AddressEntity {
         this.district = district;
     }
 
-    public Object getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(Object cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
@@ -92,11 +92,11 @@ public class AddressEntity {
         this.phone = phone;
     }
 
-    public Object getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Object location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
