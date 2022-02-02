@@ -38,8 +38,8 @@ public class ActorController {
                 .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
-                .findAllActors())
-                .withSelfRel());
+                        .findAllActors())
+                        .withSelfRel());
     }
 
     @GetMapping("/actors/name/{name}")
@@ -72,12 +72,12 @@ public class ActorController {
         } else if(lastName == null) {
             foundActors = new ArrayList<>();
             for(ActorEntity actor : repository.findAll()) {
-               if(actor.getFirstName().toLowerCase().contains(firstName.toLowerCase())) {
-                   foundActors.add(EntityModel.of(actor,
-                           linkTo(methodOn(ActorController.class)
-                                   .findActorById(actor.getActorId()))
-                                   .withSelfRel()));
-               }
+                if(actor.getFirstName().toLowerCase().contains(firstName.toLowerCase())) {
+                    foundActors.add(EntityModel.of(actor,
+                            linkTo(methodOn(ActorController.class)
+                                    .findActorById(actor.getActorId()))
+                                    .withSelfRel()));
+                }
             }
         } else if(firstName == null) {
             foundActors = new ArrayList<>();
@@ -102,8 +102,8 @@ public class ActorController {
         }
         return CollectionModel.of(foundActors,
                 linkTo(methodOn(ActorController.class)
-                .findActorsByName(firstName, lastName))
-                .withSelfRel());
+                        .findActorsByName(firstName, lastName))
+                        .withSelfRel());
     }
 
     @GetMapping("/actors/before/{date}")
@@ -137,16 +137,12 @@ public class ActorController {
         ActorEntity actor = repository.findById(id)
                 .orElseThrow(() -> new ActorNotFoundException(id));
         return EntityModel.of(actor,
-                //WebMvcLinkBuilder.linkTo
-                linkTo(
-                        //WebMvcLinkBuilder.methodOn
-                        methodOn(ActorController.class)
-                                .findAllActors())
-                                .withRel("allActors"),
-                linkTo(
-                        methodOn(ActorController.class)
-                                .findActorById(id))
-                                .withSelfRel()
+                linkTo(methodOn(ActorController.class)
+                        .findAllActors())
+                        .withRel("allActors"),
+                linkTo(methodOn(ActorController.class)
+                        .findActorById(id))
+                        .withSelfRel()
         );
     }
 
@@ -154,13 +150,11 @@ public class ActorController {
     public EntityModel<ActorEntity> addActor(@RequestBody ActorEntity actor) throws ValidationException {
         if(actor.getActorId() == null && actor.getFirstName() != null && actor.getLastName() != null && actor.getLastUpdate() != null) {
             return EntityModel.of(repository.save(actor),
-                    linkTo(
-                            methodOn(ActorController.class)
-                                    .findAllActors())
+                    linkTo(methodOn(ActorController.class)
+                            .findAllActors())
                             .withRel("allActors"),
-                    linkTo(
-                            methodOn(ActorController.class)
-                                    .findActorById(actor.getActorId()))
+                    linkTo(methodOn(ActorController.class)
+                            .findActorById(actor.getActorId()))
                             .withSelfRel()
             );
         } else {
