@@ -33,7 +33,10 @@ public class FilmController {
                 .map(film -> EntityModel.of(film,
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(LanguageController.class)
+                                .findLanguageById(film.getLanguageId()))
+                                .withRel("language")))
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
@@ -49,6 +52,9 @@ public class FilmController {
                 linkTo(methodOn(FilmController.class)
                         .findFilmById(id))
                         .withSelfRel(),
+                linkTo(methodOn(LanguageController.class)
+                        .findLanguageById(film.getLanguageId()))
+                        .withRel("language"),
                 linkTo(methodOn(FilmController.class)
                         .findAllFilms())
                         .withRel("allFilms"));
@@ -66,7 +72,10 @@ public class FilmController {
                     foundFilms.add(EntityModel.of(film,
                             linkTo(methodOn(FilmController.class)
                                     .findFilmById(film.getFilmId()))
-                                    .withSelfRel()));
+                                    .withSelfRel(),
+                            linkTo(methodOn(LanguageController.class)
+                                    .findLanguageById(film.getLanguageId()))
+                                    .withRel("language")));
                 }
             }
         }
@@ -82,7 +91,10 @@ public class FilmController {
                 .map(film -> EntityModel.of(film,
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(LanguageController.class)
+                                .findLanguageById(film.getLanguageId()))
+                                .withRel("language")))
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
@@ -96,7 +108,10 @@ public class FilmController {
                 .map(film -> EntityModel.of(film,
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(LanguageController.class)
+                                .findLanguageById(film.getLanguageId()))
+                                .withRel("language")))
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
@@ -110,7 +125,10 @@ public class FilmController {
                 .map(film -> EntityModel.of(film,
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(LanguageController.class)
+                                .findLanguageById(film.getLanguageId()))
+                                .withRel("language")))
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
@@ -124,7 +142,10 @@ public class FilmController {
                 .map(film -> EntityModel.of(film,
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(LanguageController.class)
+                                .findLanguageById(film.getLanguageId()))
+                                .withRel("language")))
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
@@ -139,6 +160,9 @@ public class FilmController {
                     linkTo(methodOn(FilmController.class)
                             .findFilmById(film.getFilmId()))
                             .withSelfRel(),
+                    linkTo(methodOn(LanguageController.class)
+                            .findLanguageById(film.getLanguageId()))
+                            .withRel("language"),
                     linkTo(methodOn(FilmController.class)
                             .findAllFilms())
                             .withRel("allFilms"));
