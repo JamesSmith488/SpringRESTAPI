@@ -33,7 +33,10 @@ public class CityController {
                 .map(city -> EntityModel.of(city,
                         linkTo(methodOn(CityController.class)
                                 .findCityById(city.getCityId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(CountryController.class)
+                                .findCountryById(city.getCountryId()))
+                                .withRel("country")))
                 .toList();
         return CollectionModel.of(cities,
                 linkTo(methodOn(CityController.class)
@@ -49,6 +52,9 @@ public class CityController {
                 linkTo(methodOn(CityController.class)
                         .findCityById(id))
                         .withSelfRel(),
+                linkTo(methodOn(CountryController.class)
+                        .findCountryById(city.getCountryId()))
+                        .withRel("country"),
                 linkTo(methodOn(CityController.class)
                         .findAllCities())
                         .withRel("allCities"));
@@ -66,7 +72,10 @@ public class CityController {
                     foundCities.add(EntityModel.of(city,
                             linkTo(methodOn(CityController.class)
                                     .findCityById(city.getCityId()))
-                                    .withSelfRel()));
+                                    .withSelfRel(),
+                            linkTo(methodOn(CountryController.class)
+                                    .findCountryById(city.getCountryId()))
+                                    .withRel("country")));
                 }
             }
         }
@@ -82,7 +91,10 @@ public class CityController {
                 .map(city -> EntityModel.of(city,
                         linkTo(methodOn(CityController.class)
                                 .findCityById(city.getCityId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(CountryController.class)
+                                .findCountryById(city.getCountryId()))
+                                .withRel("country")))
                 .toList();
         return CollectionModel.of(cities,
                 linkTo(methodOn(CityController.class)
@@ -97,6 +109,9 @@ public class CityController {
                     linkTo(methodOn(CityController.class)
                             .findCityByCountryId(city.getCityId()))
                             .withSelfRel(),
+                    linkTo(methodOn(CountryController.class)
+                            .findCountryById(city.getCountryId()))
+                            .withRel("country"),
                     linkTo(methodOn(CityController.class)
                             .findAllCities())
                             .withRel("allCities"));
