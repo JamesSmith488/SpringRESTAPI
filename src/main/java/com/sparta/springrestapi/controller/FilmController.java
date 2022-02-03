@@ -56,7 +56,7 @@ public class FilmController {
     }
 
     @GetMapping("/films")
-    public CollectionModel<EntityModel<FilmEntity>> findFilmsByTitle(@RequestParam() String title) {
+    public CollectionModel<EntityModel<FilmEntity>> findFilmsByTitle(@RequestParam(required = false) String title) {
         List<EntityModel<FilmEntity>> foundFilms;
         if(title == null) {
             return findAllFilms();

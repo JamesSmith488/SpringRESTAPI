@@ -65,7 +65,7 @@ public class ActorController {
     }
 
     @GetMapping("/actors")
-    public CollectionModel<EntityModel<ActorEntity>> findActorsByName(@RequestParam() String firstName, @RequestParam() String lastName) {
+    public CollectionModel<EntityModel<ActorEntity>> findActorsByName(@RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
         List<EntityModel<ActorEntity>> foundActors;
         if(firstName == null && lastName == null) {
             return findAllActors();
@@ -112,7 +112,8 @@ public class ActorController {
                 .map(actor -> EntityModel.of(actor,
                         linkTo(methodOn(ActorController.class)
                                 .findActorById(actor.getActorId()))
-                                .withSelfRel())).toList();
+                                .withSelfRel()))
+                .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
                         .findAllActors())
@@ -125,7 +126,8 @@ public class ActorController {
                 .map(actor -> EntityModel.of(actor,
                         linkTo(methodOn(ActorController.class)
                                 .findActorById(actor.getActorId()))
-                                .withSelfRel())).toList();
+                                .withSelfRel()))
+                .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
                         .findAllActors())
