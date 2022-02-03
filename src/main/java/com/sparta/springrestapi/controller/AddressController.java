@@ -33,7 +33,10 @@ public class AddressController {
                 .map(address -> EntityModel.of(address,
                         linkTo(methodOn(AddressController.class)
                                 .findAddressById(address.getAddressId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(CityController.class)
+                                .findCityById(address.getCityId()))
+                                .withRel("city")))
                 .toList();
         return CollectionModel.of(addresses,
                 linkTo(methodOn(AddressController.class)
@@ -47,11 +50,14 @@ public class AddressController {
                 .orElseThrow(() -> new AddressNotFoundException(id));
         return EntityModel.of(address,
                 linkTo(methodOn(AddressController.class)
-                        .findAllAddresses())
-                        .withRel("allAddresses"),
-                linkTo(methodOn(AddressController.class)
                         .findAddressById(id))
-                        .withSelfRel());
+                        .withSelfRel(),
+                linkTo(methodOn(CityController.class)
+                        .findCityById(address.getCityId()))
+                        .withRel("city"),
+                linkTo(methodOn(AddressController.class)
+                        .findAllAddresses())
+                        .withRel("allAddresses"));
     }
 
     @GetMapping("/address")
@@ -66,7 +72,10 @@ public class AddressController {
                     foundAddresses.add(EntityModel.of(addressEntity,
                             linkTo(methodOn(AddressController.class)
                                     .findAddressById(addressEntity.getAddressId()))
-                                    .withSelfRel()));
+                                    .withSelfRel(),
+                            linkTo(methodOn(CityController.class)
+                                    .findCityById(addressEntity.getCityId()))
+                                    .withRel("city")));
                 }
             }
         }
@@ -88,7 +97,10 @@ public class AddressController {
                     foundAddresses.add(EntityModel.of(addressEntity,
                             linkTo(methodOn(AddressController.class)
                                     .findAddressById(addressEntity.getAddressId()))
-                                    .withSelfRel()));
+                                    .withSelfRel(),
+                            linkTo(methodOn(CityController.class)
+                                    .findCityById(addressEntity.getCityId()))
+                                    .withRel("city")));
                 }
             }
         }
@@ -104,7 +116,10 @@ public class AddressController {
                 .map(address -> EntityModel.of(address,
                         linkTo(methodOn(AddressController.class)
                                 .findAddressById(address.getAddressId()))
-                                .withSelfRel()))
+                                .withSelfRel(),
+                        linkTo(methodOn(CityController.class)
+                                .findCityById(address.getCityId()))
+                                .withRel("city")))
                 .toList();
         return CollectionModel.of(addresses,
                 linkTo(methodOn(AddressController.class)
@@ -118,11 +133,14 @@ public class AddressController {
                 .orElseThrow(() -> new AddressNotFoundException(code));
         return EntityModel.of(address,
                 linkTo(methodOn(AddressController.class)
-                        .findAllAddresses())
-                        .withRel("allAddresses"),
-                linkTo(methodOn(AddressController.class)
                         .findAddressByPostalCode(code))
-                        .withSelfRel());
+                        .withSelfRel(),
+                linkTo(methodOn(CityController.class)
+                        .findCityById(address.getCityId()))
+                        .withRel("city"),
+                linkTo(methodOn(AddressController.class)
+                        .findAllAddresses())
+                        .withRel("allAddresses"));
     }
 
     @PostMapping("/address")
@@ -130,11 +148,14 @@ public class AddressController {
         if(address.getAddressId() == null && address.getAddress() != null && address.getDistrict() != null && address.getCityId() != null && address.getPostalCode() != null && address.getLastUpdate() != null) {
             return EntityModel.of(address,
                     linkTo(methodOn(AddressController.class)
-                            .findAllAddresses())
-                            .withRel("allAddresses"),
-                    linkTo(methodOn(AddressController.class)
                             .findAddressById(address.getAddressId()))
-                            .withSelfRel());
+                            .withSelfRel(),
+                    linkTo(methodOn(CityController.class)
+                            .findCityById(address.getCityId()))
+                            .withRel("city"),
+                    linkTo(methodOn(AddressController.class)
+                            .findAllAddresses())
+                            .withRel("allAddresses"));
         } else {
             throw new ValidationException("Address Cannot Be Created");
         }

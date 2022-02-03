@@ -42,6 +42,19 @@ public class ActorController {
                         .withSelfRel());
     }
 
+    @GetMapping("/actors/{id}")
+    public EntityModel<ActorEntity> findActorById(@PathVariable("id") Integer id) {
+        ActorEntity actor = repository.findById(id)
+                .orElseThrow(() -> new ActorNotFoundException(id));
+        return EntityModel.of(actor,
+                linkTo(methodOn(ActorController.class)
+                        .findActorById(id))
+                        .withSelfRel(),
+                linkTo(methodOn(ActorController.class)
+                        .findAllActors())
+                        .withRel("allActors"));
+    }
+
     @GetMapping("/actors/name/{name}")
     public CollectionModel<EntityModel<ActorEntity>> findActorsByName(@PathVariable String name) {
         List<EntityModel<ActorEntity>> foundActors;
@@ -134,31 +147,16 @@ public class ActorController {
                         .withSelfRel());
     }
 
-    @GetMapping("/actors/{id}")
-    public EntityModel<ActorEntity> findActorById(@PathVariable("id") Integer id) {
-        ActorEntity actor = repository.findById(id)
-                .orElseThrow(() -> new ActorNotFoundException(id));
-        return EntityModel.of(actor,
-                linkTo(methodOn(ActorController.class)
-                        .findAllActors())
-                        .withRel("allActors"),
-                linkTo(methodOn(ActorController.class)
-                        .findActorById(id))
-                        .withSelfRel()
-        );
-    }
-
     @PostMapping("/actors")
     public EntityModel<ActorEntity> addActor(@RequestBody ActorEntity actor) throws ValidationException {
         if(actor.getActorId() == null && actor.getFirstName() != null && actor.getLastName() != null && actor.getLastUpdate() != null) {
             return EntityModel.of(repository.save(actor),
                     linkTo(methodOn(ActorController.class)
-                            .findAllActors())
-                            .withRel("allActors"),
-                    linkTo(methodOn(ActorController.class)
                             .findActorById(actor.getActorId()))
-                            .withSelfRel()
-            );
+                            .withSelfRel(),
+                    linkTo(methodOn(ActorController.class)
+                            .findAllActors())
+                            .withRel("allActors"));
         } else {
             throw new ValidationException("Actor Cannot Be Created");
         }

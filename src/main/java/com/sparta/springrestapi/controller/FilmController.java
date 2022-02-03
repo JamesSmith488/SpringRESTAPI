@@ -47,12 +47,11 @@ public class FilmController {
                 .orElseThrow(() -> new FilmNotFoundException(id));
         return EntityModel.of(film,
                 linkTo(methodOn(FilmController.class)
-                        .findAllFilms())
-                        .withRel("allFilms"),
-                linkTo(methodOn(FilmController.class)
                         .findFilmById(id))
-                        .withSelfRel()
-        );
+                        .withSelfRel(),
+                linkTo(methodOn(FilmController.class)
+                        .findAllFilms())
+                        .withRel("allFilms"));
     }
 
     @GetMapping("/films")
@@ -138,11 +137,11 @@ public class FilmController {
         if(film.getFilmId() == null && film.getTitle() != null && film.getDescription() != null && film.getReleaseYear() != null && film.getLanguageId() != null && film.getRating() != null && film.getLastUpdate() != null) {
             return EntityModel.of(repository.save(film),
                     linkTo(methodOn(FilmController.class)
-                            .findAllFilms())
+                            .findFilmById(film.getFilmId()))
                             .withSelfRel(),
                     linkTo(methodOn(FilmController.class)
-                            .findFilmById(film.getFilmId()))
-                            .withSelfRel());
+                            .findAllFilms())
+                            .withRel("allFilms"));
         } else {
             throw new ValidationException("Film Cannot Be Created");
         }
