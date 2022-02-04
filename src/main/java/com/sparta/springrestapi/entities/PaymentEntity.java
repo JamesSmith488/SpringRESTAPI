@@ -96,6 +96,19 @@ public class PaymentEntity {
     }
 
     @Override
+    public String toString() {
+        return "PaymentEntity{" +
+                "paymentId=" + paymentId +
+                ", customerId=" + customerId +
+                ", staffId=" + staffId +
+                ", rentalId=" + rentalId +
+                ", amount=" + amount +
+                ", paymentDate=" + paymentDate +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(paymentId, customerId, staffId, rentalId, amount, paymentDate, lastUpdate);
     }

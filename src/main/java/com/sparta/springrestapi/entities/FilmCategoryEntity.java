@@ -53,6 +53,15 @@ public class FilmCategoryEntity {
     }
 
     @Override
+    public String toString() {
+        return "FilmCategoryEntity{" +
+                "filmId=" + filmId +
+                ", categoryId=" + categoryId +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(filmId, categoryId, lastUpdate);
     }

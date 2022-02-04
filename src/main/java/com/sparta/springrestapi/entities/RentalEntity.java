@@ -95,6 +95,19 @@ public class RentalEntity {
     }
 
     @Override
+    public String toString() {
+        return "RentalEntity{" +
+                "rentalId=" + rentalId +
+                ", rentalDate=" + rentalDate +
+                ", inventoryId=" + inventoryId +
+                ", customerId=" + customerId +
+                ", returnDate=" + returnDate +
+                ", staffId=" + staffId +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(rentalId, rentalDate, inventoryId, customerId, returnDate, staffId, lastUpdate);
     }

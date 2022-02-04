@@ -62,6 +62,16 @@ public class InventoryEntity {
     }
 
     @Override
+    public String toString() {
+        return "InventoryEntity{" +
+                "inventoryId=" + inventoryId +
+                ", filmId=" + filmId +
+                ", storeId=" + storeId +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(inventoryId, filmId, storeId, lastUpdate);
     }

@@ -62,6 +62,16 @@ public class StoreEntity {
     }
 
     @Override
+    public String toString() {
+        return "StoreEntity{" +
+                "storeId=" + storeId +
+                ", managerStaffId=" + managerStaffId +
+                ", addressId=" + addressId +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(storeId, managerStaffId, addressId, lastUpdate);
     }

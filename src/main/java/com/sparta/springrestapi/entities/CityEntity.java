@@ -62,6 +62,16 @@ public class CityEntity {
     }
 
     @Override
+    public String toString() {
+        return "CityEntity{" +
+                "cityId=" + cityId +
+                ", city='" + city + '\'' +
+                ", countryId=" + countryId +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(cityId, city, countryId, lastUpdate);
     }

@@ -172,6 +172,26 @@ public class FilmEntity {
     }
 
     @Override
+    public String toString() {
+        return "FilmEntity{" +
+                "filmId=" + filmId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", languageId=" + languageId +
+                ", originalLanguageId=" + originalLanguageId +
+                ", rentalDuration=" + rentalDuration +
+                ", rentalRate=" + rentalRate +
+                ", length=" + length +
+                ", replacementCost=" + replacementCost +
+                ", rating='" + rating + '\'' +
+                ", specialFeatures='" + specialFeatures + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                ", availability=" + availability +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(filmId, title, description, releaseYear, languageId, originalLanguageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, lastUpdate, availability);
     }

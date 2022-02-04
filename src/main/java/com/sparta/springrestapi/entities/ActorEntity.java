@@ -64,6 +64,16 @@ public class ActorEntity extends RepresentationModel<ActorEntity> {
     }
 
     @Override
+    public String toString() {
+        return "ActorEntity{" +
+                "actorId=" + actorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(actorId, firstName, lastName, lastUpdate);
     }

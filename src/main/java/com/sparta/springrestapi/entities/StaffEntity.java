@@ -140,6 +140,23 @@ public class StaffEntity {
     }
 
     @Override
+    public String toString() {
+        return "StaffEntity{" +
+                "staffId=" + staffId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", addressId=" + addressId +
+                ", picture=" + Arrays.toString(picture) +
+                ", email='" + email + '\'' +
+                ", storeId=" + storeId +
+                ", active=" + active +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result = Objects.hash(staffId, firstName, lastName, addressId, email, storeId, active, username, password, lastUpdate);
         result = 31 * result + Arrays.hashCode(picture);

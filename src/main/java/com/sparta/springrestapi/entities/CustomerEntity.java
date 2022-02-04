@@ -117,6 +117,21 @@ public class CustomerEntity {
     }
 
     @Override
+    public String toString() {
+        return "CustomerEntity{" +
+                "customerId=" + customerId +
+                ", storeId=" + storeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", addressId=" + addressId +
+                ", active=" + active +
+                ", createDate=" + createDate +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(customerId, storeId, firstName, lastName, email, addressId, active, createDate, lastUpdate);
     }

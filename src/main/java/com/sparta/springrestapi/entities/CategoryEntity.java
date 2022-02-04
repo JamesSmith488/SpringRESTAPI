@@ -51,6 +51,15 @@ public class CategoryEntity {
     }
 
     @Override
+    public String toString() {
+        return "CategoryEntity{" +
+                "categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(categoryId, name, lastUpdate);
     }

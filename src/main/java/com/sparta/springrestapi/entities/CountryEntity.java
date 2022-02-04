@@ -51,6 +51,15 @@ public class CountryEntity {
     }
 
     @Override
+    public String toString() {
+        return "CountryEntity{" +
+                "countryId=" + countryId +
+                ", country='" + country + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(countryId, country, lastUpdate);
     }

@@ -51,6 +51,15 @@ public class LanguageEntity {
     }
 
     @Override
+    public String toString() {
+        return "LanguageEntity{" +
+                "languageId=" + languageId +
+                ", name='" + name + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(languageId, name, lastUpdate);
     }

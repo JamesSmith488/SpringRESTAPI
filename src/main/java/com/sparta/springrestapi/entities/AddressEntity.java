@@ -117,6 +117,21 @@ public class AddressEntity {
     }
 
     @Override
+    public String toString() {
+        return "AddressEntity{" +
+                "addressId=" + addressId +
+                ", address='" + address + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", district='" + district + '\'' +
+                ", cityId=" + cityId +
+                ", postalCode='" + postalCode + '\'' +
+                ", phone='" + phone + '\'' +
+                ", location='" + location + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(addressId, address, address2, district, cityId, postalCode, phone, location, lastUpdate);
     }
