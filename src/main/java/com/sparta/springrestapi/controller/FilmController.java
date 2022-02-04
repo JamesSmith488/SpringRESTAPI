@@ -2,6 +2,7 @@ package com.sparta.springrestapi.controller;
 
 import com.sparta.springrestapi.entities.FilmEntity;
 import com.sparta.springrestapi.exceptions.FilmNotFoundException;
+import com.sparta.springrestapi.repositories.FilmCategoryRepository;
 import com.sparta.springrestapi.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -21,10 +22,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class FilmController {
 
     private final FilmRepository repository;
+    private final FilmCategoryRepository filmCategoryRepository;
 
     @Autowired
-    public FilmController(FilmRepository repository) {
+    public FilmController(FilmRepository repository, FilmCategoryRepository filmCategoryRepository) {
         this.repository = repository;
+        this.filmCategoryRepository = filmCategoryRepository;
     }
 
     @GetMapping("/films/all")
@@ -34,6 +37,9 @@ public class FilmController {
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
                                 .withSelfRel(),
+                        linkTo(methodOn(CategoryController.class)
+                                .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                .withRel("category"),
                         linkTo(methodOn(LanguageController.class)
                                 .findLanguageById(film.getLanguageId()))
                                 .withRel("language")))
@@ -52,6 +58,9 @@ public class FilmController {
                 linkTo(methodOn(FilmController.class)
                         .findFilmById(id))
                         .withSelfRel(),
+                linkTo(methodOn(CategoryController.class)
+                        .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                        .withRel("category"),
                 linkTo(methodOn(LanguageController.class)
                         .findLanguageById(film.getLanguageId()))
                         .withRel("language"),
@@ -73,6 +82,9 @@ public class FilmController {
                             linkTo(methodOn(FilmController.class)
                                     .findFilmById(film.getFilmId()))
                                     .withSelfRel(),
+                            linkTo(methodOn(CategoryController.class)
+                                    .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                    .withRel("category"),
                             linkTo(methodOn(LanguageController.class)
                                     .findLanguageById(film.getLanguageId()))
                                     .withRel("language")));
@@ -92,6 +104,9 @@ public class FilmController {
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
                                 .withSelfRel(),
+                        linkTo(methodOn(CategoryController.class)
+                                .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                .withRel("category"),
                         linkTo(methodOn(LanguageController.class)
                                 .findLanguageById(film.getLanguageId()))
                                 .withRel("language")))
@@ -109,6 +124,9 @@ public class FilmController {
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
                                 .withSelfRel(),
+                        linkTo(methodOn(CategoryController.class)
+                                .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                .withRel("category"),
                         linkTo(methodOn(LanguageController.class)
                                 .findLanguageById(film.getLanguageId()))
                                 .withRel("language")))
@@ -126,6 +144,9 @@ public class FilmController {
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
                                 .withSelfRel(),
+                        linkTo(methodOn(CategoryController.class)
+                                .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                .withRel("category"),
                         linkTo(methodOn(LanguageController.class)
                                 .findLanguageById(film.getLanguageId()))
                                 .withRel("language")))
@@ -143,6 +164,9 @@ public class FilmController {
                         linkTo(methodOn(FilmController.class)
                                 .findFilmById(film.getFilmId()))
                                 .withSelfRel(),
+                        linkTo(methodOn(CategoryController.class)
+                                .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                                .withRel("category"),
                         linkTo(methodOn(LanguageController.class)
                                 .findLanguageById(film.getLanguageId()))
                                 .withRel("language")))
@@ -160,6 +184,9 @@ public class FilmController {
                     linkTo(methodOn(FilmController.class)
                             .findFilmById(film.getFilmId()))
                             .withSelfRel(),
+                    linkTo(methodOn(CategoryController.class)
+                            .findCategoryById(filmCategoryRepository.findByFilmId(film.getFilmId()).getCategoryId()))
+                            .withRel("category"),
                     linkTo(methodOn(LanguageController.class)
                             .findLanguageById(film.getLanguageId()))
                             .withRel("language"),
