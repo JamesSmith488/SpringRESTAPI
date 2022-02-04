@@ -72,7 +72,7 @@ public class LanguageController {
         }
         return CollectionModel.of(foundLanguages,
                 linkTo(methodOn(LanguageController.class)
-                        .findAllLanguages())
+                        .findLanguageByName(name))
                         .withSelfRel());
     }
 
