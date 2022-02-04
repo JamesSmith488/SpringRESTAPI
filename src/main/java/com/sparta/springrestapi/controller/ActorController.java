@@ -129,7 +129,7 @@ public class ActorController {
                 .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
-                        .findAllActors())
+                        .findActorByDateBefore(date))
                         .withSelfRel());
     }
 
@@ -143,7 +143,7 @@ public class ActorController {
                 .toList();
         return CollectionModel.of(actors,
                 linkTo(methodOn(ActorController.class)
-                        .findAllActors())
+                        .findActorByDateAfter(date))
                         .withSelfRel());
     }
 

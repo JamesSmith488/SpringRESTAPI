@@ -98,7 +98,7 @@ public class FilmController {
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
-                        .findAllFilms())
+                        .findFilmsByYear(year))
                         .withSelfRel());
     }
 
@@ -115,7 +115,7 @@ public class FilmController {
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
-                        .findAllFilms())
+                        .findFilmsByLanguageId(id))
                         .withSelfRel());
     }
 
@@ -132,7 +132,7 @@ public class FilmController {
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
-                        .findAllFilms())
+                        .findFilmsByRating(rating))
                         .withSelfRel());
     }
 
@@ -149,7 +149,7 @@ public class FilmController {
                 .toList();
         return CollectionModel.of(films,
                 linkTo(methodOn(FilmController.class)
-                        .findAllFilms())
+                        .findFilmsByLength(length))
                         .withSelfRel());
     }
 
