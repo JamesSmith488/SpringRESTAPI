@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest
@@ -35,8 +37,18 @@ class ActorControllerTests {
     void checkingActorWithId1LastNameIsGuinessTest() {
         RestTemplate restTemplate = new RestTemplate();
         ActorEntity actor = restTemplate.getForObject("http://localhost:8080/actors/1", ActorEntity.class);
+        System.out.println(actor);
         assert actor != null;
         Assertions.assertEquals("GUINESS", actor.getLastName());
+    }
+
+    @Test
+    @DisplayName("Checking Entity Model of findActorById(1) test")
+    void checkingEntityModelOfFindActorById1Test() {
+        EntityModel<ActorEntity> model = controller.findActorById(1);
+        Assertions.assertEquals(
+                "EntityModel { content: ActorEntity{actorId=1, firstName='PENELOPE', lastName='GUINESS', lastUpdate=2006-02-15 04:34:33.0}, links: [<http://localhost/actors/1>;rel=\"self\", <http://localhost/actors/all>;rel=\"allActors\"] }",
+                model.toString());
     }
 
 }
