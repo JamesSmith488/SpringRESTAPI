@@ -56,15 +56,15 @@ public class FilmCategoryController {
     public CollectionModel<EntityModel<FilmEntity>> findFilmsByCategory(@PathVariable("id") Integer id) {
         List<FilmCategoryEntity> filmCategories = repository.findByCategoryId(id);
         List<EntityModel<FilmEntity>> foundFilms = new ArrayList<>();
-        for(FilmEntity films : filmRepository.findAll()) {
+        for(FilmEntity film : filmRepository.findAll()) {
             for(FilmCategoryEntity record : filmCategories){
-                if(record.getFilmId().equals(films.getFilmId())) {
-                    foundFilms.add(EntityModel.of(films,
+                if(record.getFilmId().equals(film.getFilmId())) {
+                    foundFilms.add(EntityModel.of(film,
                             linkTo(methodOn(FilmController.class)
-                                    .findFilmById(films.getFilmId()))
+                                    .findFilmById(film.getFilmId()))
                                     .withSelfRel(),
                             linkTo(methodOn(LanguageController.class)
-                                    .findLanguageById(films.getLanguageId()))
+                                    .findLanguageById(film.getLanguageId()))
                                     .withRel("language"),
                             linkTo(methodOn(CategoryController.class)
                                     .findCategoryById(id))
